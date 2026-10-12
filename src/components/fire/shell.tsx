@@ -1,0 +1,11 @@
+import { Link, useRouterState } from '@tanstack/react-router';
+import { useEffect, useState, type ReactNode } from 'react';
+import { Flame, LayoutDashboard, RadioTower, BellRing, ClipboardCheck, FireExtinguisher, ChartNoAxesCombined, CloudSun, ShieldCheck } from 'lucide-react';
+import cityBg from '@/assets/fire-city.jpg';
+const menus=[{to:'/' as const,label:'消防综合态势',icon:LayoutDashboard},{to:'/monitoring' as const,label:'物联设备监测',icon:RadioTower},{to:'/alerts' as const,label:'告警事件中心',icon:BellRing},{to:'/inspection' as const,label:'隐患巡检管理',icon:ClipboardCheck},{to:'/resources' as const,label:'应急资源调度',icon:FireExtinguisher},{to:'/analysis' as const,label:'消防数据分析',icon:ChartNoAxesCombined}];
+export function FireShell({children}:{children:ReactNode}){
+ const path=useRouterState({select:s=>s.location.pathname}); const [clock,setClock]=useState('2026-10-12 14:16:00');
+ useEffect(()=>{const update=()=>setClock(new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date()));update();const t=setInterval(update,1000);return()=>clearInterval(t);},[]);
+ const nav=(items:typeof menus)=><nav className="nav-half">{items.map(m=><Link key={m.to} to={m.to} className={`nav-item ${path===m.to?'active':''}`}><m.icon/>{m.label}</Link>)}</nav>;
+ return <><img className="app-bg" src={cityBg} width={1920} height={1088} alt="消防红灯光映照的上海城市夜景"/><div className="app-shade"/><header className="fire-header"><div className="header-main">{nav(menus.slice(0,3))}<div className="brand"><h1><Flame/>智慧消防管控平台</h1><p>SMART FIRE SAFETY PLATFORM</p></div>{nav(menus.slice(3))}</div><div className="header-sub"><span className="flex items-center gap-2"><CloudSun className="size-3"/>上海市 &nbsp; 24°C &nbsp; 多云 &nbsp; <span className="connection-label">风力 3 级 · 火险等级低</span></span><span className="connection-label"><span className="online-dot"/>监测网络正常 &nbsp; | &nbsp; 数据安全连接</span><span className="font-display">{clock} &nbsp; UTC+8</span></div></header><main className="dashboard">{children}<footer className="footer"><span className="flex items-center gap-2"><ShieldCheck className="size-3 text-cyan"/>城市消防安全运行中心 · 上海</span><span>模拟数据演示 &nbsp; / &nbsp; 非实时消防监测系统</span><span className="connection-label">SMART FIRE · 守护城市每一刻</span></footer></main></>;
+}
