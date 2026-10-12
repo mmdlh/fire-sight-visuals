@@ -10,7 +10,7 @@ export function FireChart({ kind, period = 'week', className = '', labels }: { k
    if(disposed) return;
    const style = getComputedStyle(document.documentElement);
    const color = (name:string) => style.getPropertyValue(name).trim();
-   const palette = [color('--primary'),color('--cyan'),color('--amber'),color('--success')];
+   const palette: [string, string, string, string] = [color('--primary'),color('--cyan'),color('--amber'),color('--success')];
    const muted=color('--muted-foreground'), border=color('--border');
    const values = period === 'month' ? [25,40,32,56,35,47,22] : [12,22,16,32,19,26,14];
    const base: EChartsOption = { color:palette, backgroundColor:'transparent', textStyle:{fontFamily:'Noto Sans SC',color:muted,fontSize:10}, animationDuration:650, tooltip:{trigger:'axis',backgroundColor:color('--popover'),borderColor:border,textStyle:{color:color('--foreground'),fontSize:11}}, grid:{left:36,right:15,top:45,bottom:27}, legend:{top:5,right:10,itemWidth:9,itemHeight:5,textStyle:{color:muted,fontSize:9}}, xAxis:{type:'category',data:labels ?? ['10/06','10/07','10/08','10/09','10/10','10/11','10/12'],axisLine:{lineStyle:{color:border}},axisTick:{show:false},axisLabel:{color:muted,fontSize:9}}, yAxis:{type:'value',splitLine:{lineStyle:{color:border,type:'dashed'}},axisLabel:{color:muted,fontSize:9}} };

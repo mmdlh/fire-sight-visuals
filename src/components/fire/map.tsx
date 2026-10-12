@@ -8,7 +8,7 @@ export function CityMap({large=false}:{large?:boolean}) {
  return <div className={`map-panel ${large?'large':''}`}>
   <div className="map-heading"><h3>城市消防态势一张图</h3><p>上海市 · 重点单位监测分布 <span className="text-cyan"> / 示意地图</span></p></div>
   <svg className="city-map" viewBox={`${300-300/zoom} ${245-245/zoom} ${600/zoom} ${490/zoom}`} aria-label="上海消防监测点位示意图">
-   <defs><pattern id="map-grid" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0V25" className="map-grid"/></pattern></defs>
+   <defs><pattern id="map-grid" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0V25" className="map-grid" fill="none"/></pattern></defs>
    <rect width="600" height="490" fill="url(#map-grid)"/>
    <path className="map-land" d="M102 247L127 202L156 192L153 157L201 141L220 112L261 109L278 77L318 73L345 97L365 84L392 125L440 135L471 181L510 200L523 247L492 281L504 320L475 350L437 361L414 397L371 407L332 387L299 411L258 391L227 405L198 376L170 370L139 339L113 316L126 279Z"/>
    <path className="map-river" d="M369 85C380 130 345 140 358 192S336 247 352 276S400 293 396 332S369 367 377 411"/>
